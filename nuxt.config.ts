@@ -2,6 +2,10 @@
 export default defineNuxtConfig({
   compatibilityDate: '2026-02-09',
   devtools: { enabled: true },
+  nitro: {
+    port: 3006,
+    moduleSideEffects: ['prisma/client'] 
+  },
   devServer: {
     port: 3006,
     host: '0.0.0.0'
