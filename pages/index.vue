@@ -1,4 +1,7 @@
+<template>
+  <div class="p-4 text-center">Redirecting...</div>
+</template>
+
 <script setup lang="ts">
-// Simple redirect to admin/login
-navigateTo('/admin')
+await navigateTo('/admin')
 </script>

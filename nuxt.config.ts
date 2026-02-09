@@ -6,7 +6,10 @@ export default defineNuxtConfig({
     port: 3006,
     host: '0.0.0.0'
   },
-  modules: [],
+  routeRules: {
+    '/': { redirect: '/admin' }
+  },
+  modules: ['@nuxtjs/tailwindcss'],
   runtimeConfig: {
     // Private keys are only available on the server
     discordClientId: process.env.DISCORD_CLIENT_ID,

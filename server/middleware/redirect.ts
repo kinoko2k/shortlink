@@ -6,18 +6,18 @@ export default defineEventHandler(async (event) => {
   // Clean path (remove leading slash)
   const code = pathname.substring(1)
 
-  // Skip for root, api routes, system routes, and known pages
-  if (
-      !code ||
-      pathname.startsWith('/api') ||
-      pathname.startsWith('/_nuxt') ||
-      pathname.startsWith('/__nuxt') || // dev tools
-      pathname.startsWith('/_ipx') || 
-      pathname === '/admin' || 
-      pathname.startsWith('/admin/') ||
-      pathname === '/login' ||
-      pathname === '/favicon.ico'
-  ) {
+  // Exclusion patterns
+  const isExcluded = [
+    /^\/api(\/|$)/,       // /api or /api/...
+    /^\/_nuxt(\/|$)/,     // /_nuxt or /_nuxt/...
+    /^\/__nuxt(\/|$)/,    // /__nuxt or /__nuxt/...
+    /^\/_ipx(\/|$)/,      // /_ipx or /_ipx/...
+    /^\/favicon\.ico$/,
+    /^\/admin(\/|$)/,     // /admin or /admin/...
+    /^\/login(\/|$)/      // /login or /login/...
+  ].some(regex => regex.test(pathname))
+
+  if (!code || isExcluded) {
     return
   }
 
