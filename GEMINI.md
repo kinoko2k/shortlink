@@ -18,7 +18,6 @@ Discord OAuth2でログインでき、許可されたDiscord IDのユーザー�
 9. 管理画面はログイン必須
 10. 短縮URLの作成・一覧表示・無効化ができる
 11. javascript: や data: スキームは拒否する
-12. Cloudflare などのCDN配下での運用を想定する
 
 ## 【データベース要件】
 - Prisma ORM を使用
