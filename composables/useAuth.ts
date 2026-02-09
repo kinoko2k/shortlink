@@ -5,9 +5,10 @@ export const useAuth = () => {
 
     const fetchUser = async () => {
         try {
-            const { user: fetchedUser } = await $fetch('/api/auth/me')
-            user.value = fetchedUser
+            const data = await $fetch<{ user: { username: string; discordId: string } | null }>('/api/auth/me')
+            user.value = data.user
         } catch (e) {
+            console.error('Failed to fetch user:', e)
             user.value = null
         }
     }

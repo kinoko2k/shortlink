@@ -28,7 +28,8 @@ export const setUserSession = (event: H3Event, payload: UserPayload) => {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
     sameSite: 'lax',
-    maxAge: 60 * 60 * 24 * 7 // 7 days
+    maxAge: 60 * 60 * 24 * 7, // 7 days
+    path: '/'  // Add explicit path to ensure visibility
   })
 }
 

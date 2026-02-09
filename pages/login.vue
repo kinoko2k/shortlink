@@ -40,12 +40,15 @@
 </template>
 
 <script setup lang="ts">
-const { login, user } = useAuth()
+const { login, user, fetchUser } = useAuth()
 
 // If already logged in, go to admin
-watchEffect(() => {
+watchEffect(async () => {
+    if (!user.value) {
+        await fetchUser()
+    }
     if (user.value) {
-        navigateTo('/admin')
+        navigateTo('/admin', { replace: true })
     }
 })
 </script>
