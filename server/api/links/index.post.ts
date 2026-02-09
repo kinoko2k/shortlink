@@ -9,7 +9,7 @@ const createLinkSchema = z.object({
   }, {
     message: "Invalid URL scheme"
   }),
-  shortCode: z.string().min(7).max(10).optional().refine((code) => {
+  shortCode: z.string().min(3).max(32).optional().refine((code) => {
       // If provided, ensure it uses safe characters
       if (!code) return true
       return /^[a-zA-Z0-9_-]+$/.test(code)
