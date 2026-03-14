@@ -119,10 +119,10 @@
                 </div>
                 <div class="mt-1">
                    <button 
-                    @click="toggleLink(link)"
-                    class="text-xs font-medium text-indigo-600 hover:text-indigo-900"
+                    @click="deleteLink(link)"
+                    class="text-xs font-medium text-red-600 hover:text-red-900"
                   >
-                    {{ link.enabled ? 'Disable' : 'Enable' }}
+                    Delete
                   </button>
                 </div>
               </div>
@@ -177,15 +177,16 @@ const createLink = async () => {
 }
 
 // Toggle Link
-const toggleLink = async (link: any) => {
+const deleteLink = async (link: any) => {
+  if (!confirm('Are you sure you want to delete this link?')) return
+  
   try {
     await $fetch(`/api/links/${link.id}`, {
-      method: 'PATCH',
-      body: { enabled: !link.enabled }
+      method: 'DELETE'
     })
     refresh()
   } catch (e) {
-    alert('Failed to update status')
+    alert('Failed to delete link')
   }
 }
 
