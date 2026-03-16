@@ -117,7 +117,14 @@
                 <div class="text-xs text-gray-400">
                   {{ new Date(link.createdAt).toLocaleDateString() }}
                 </div>
-                <div class="mt-1">
+                <div class="mt-1 flex gap-3 justify-end">
+                  <button 
+                    @click="toggleLink(link)"
+                    :class="link.enabled ? 'text-amber-600 hover:text-amber-900' : 'text-green-600 hover:text-green-900'"
+                    class="text-xs font-medium"
+                  >
+                    {{ link.enabled ? 'Disable' : 'Enable' }}
+                  </button>
                    <button 
                     @click="deleteLink(link)"
                     class="text-xs font-medium text-red-600 hover:text-red-900"
@@ -177,6 +184,19 @@ const createLink = async () => {
 }
 
 // Toggle Link
+const toggleLink = async (link: any) => {
+  try {
+    await $fetch(`/api/links/${link.id}`, {
+      method: 'PATCH',
+      body: { enabled: !link.enabled }
+    })
+    refresh()
+  } catch (e: any) {
+    alert(e.data?.statusMessage || 'Failed to update link')
+  }
+}
+
+// Delete Link
 const deleteLink = async (link: any) => {
   if (!confirm('Are you sure you want to delete this link?')) return
   
