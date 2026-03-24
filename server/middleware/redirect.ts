@@ -37,7 +37,21 @@ export default defineEventHandler(async (event) => {
             })
         )
     } else {
-        // Fallback
+        // Fallback for environments that don't support waitUntil
+        prisma.link.update({
+            where: { id: link.id },
+            data: { clicks: { increment: 1 } }
+        }).catch(console.error)
+    }
+    return sendRedirect(event, link.originalUrl, 302)
+  }
+
+  // If link is not found or disabled, throw 404
+  throw createError({
+    statusCode: 404,
+    statusMessage: 'Page Not Found'
+  })
+})
         prisma.link.update({
                 where: { id: link.id },
                 data: { clicks: { increment: 1 } }

@@ -1,4 +1,5 @@
 <template>
+  <VitePwaReloadPrompt />
   <NuxtLayout>
     <NuxtPage />
   </NuxtLayout>
