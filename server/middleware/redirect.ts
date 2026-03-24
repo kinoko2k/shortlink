@@ -1,4 +1,6 @@
-import prisma from '~/server/utils/prisma'
+import { PrismaClient } from '@prisma/client'
+
+const prisma = new PrismaClient()
 
 export default defineEventHandler(async (event) => {
   const { pathname } = getRequestURL(event)
@@ -51,15 +53,4 @@ export default defineEventHandler(async (event) => {
     statusCode: 404,
     statusMessage: 'Page Not Found'
   })
-})
-        prisma.link.update({
-                where: { id: link.id },
-                data: { clicks: { increment: 1 } }
-        }).catch(console.error)
-    }
-
-    return sendRedirect(event, link.originalUrl, 302)
-  }
-
-  // If not found, do nothing (pass to Nuxt Pages to handle 404)
 })
